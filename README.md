@@ -1,6 +1,83 @@
 # kubernetes
 
-# kubernetes
+
+### Getting Started On Kubernetes Terminology 
+
+```
+    1) Master Nodes 
+
+    2) Worked Nodes 
+
+    3) Control Pane 
+
+    4) Data Pane 
+
+    5) Node Pool or Node Group
+
+    6) Kubectl 
+
+    7) Kubelet 
+
+    8) Control Pane and Data Pane Components
+```
+
+### How can we learn Kubernetes ?
+
+```
+    1) Minikube   ( Sandbox Kubernetes Solution For Linux / Windows / Mac Based Machines )
+    2) You can create your machines and install Kubernetes on it  
+    3) EKS : Elastic Kubernetes Service : Platform As A Service For Kubernetes on AWS ( Production Grade )
+```
+
+### Can we created our own cluster manually ??? YES   [ Highlevel Steps ]
+
+```
+    1) Ensure you Linux Machines are available.
+    2) Install Container Run Time ( Docker ) on the top of all the machines. 
+    3) Install KUBELET on the top of all the servers.  ( Kubelet is a local leader on each & every node where all the workloads reports the information to kubelet. Kubelet reports the information to Master /KubeApi Server )
+
+    4) Install Kubernetes On The Top Of a Node that you've selected and this is going to be the master 
+
+    5) Once the installation is completed, it's going to offer a token. Using this token, we can add any of the nodes that are in the Master Network and from that time they will become the worker nodes.
+```
+
+
+### Do we have any control of the master node on EKS ?
+
+```
+    NO!
+
+    You don't have any visibility or control on Master Node or Control Pane when you're using Managed Service.
+
+```
+
+### What happends if the master node is down ???
+
+```
+    $ Will the existing workloads going to fail or going to be impacted ?
+
+        * No ! If the master is not reachable or fails, all the workloads will operate normally. But you cannot connect to the cluster or schedule new workloads. Existing workloads will run as usual. 
+
+        * That's why for production based workloads, we typically go with 3 Master nodes in 3 different zones.
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### What is Kubernetes ?
