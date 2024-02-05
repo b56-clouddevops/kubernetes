@@ -93,6 +93,7 @@
         2) Shared Network NameSpace.
 ```
 
+### Why kubernetes is also referred as K8's ?
 
 
 
