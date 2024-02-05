@@ -1,0 +1,11 @@
+# Multi Container Pod 
+apiVersion: v1
+kind: Pod
+metadata:
+    name: multi-container-pod
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:1.14.2
+  - name: centos-container
+    image: centos:7
