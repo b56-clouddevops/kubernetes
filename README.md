@@ -128,6 +128,39 @@
     $ kubectl run podname --image=nginx
 ```
 
+### How can we create resources using kubectl when using delcarative manifest files ?
+
+```
+    $ kubectl create -f fileName.yml 
+
+    $ kubectl update -f fileName.yml 
+```
+
+
+### create vs update ?
+```
+    create : creates the resources if the resource is not available. ( cannot update the values if the resource is already there .)
+
+    apply  : apply can create the resouce and at the same time if the resource is already available, then it's going to upadte the value if you want.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
