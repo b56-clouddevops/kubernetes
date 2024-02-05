@@ -62,6 +62,43 @@
 
 ```
 
+### What is kubectl and why we need that ?
+
+```
+    kubectl is a kubernetes client that needs to be installed on the top of the computer where you wish to connect to the kubernetes cluster.
+
+    Ref : curl https://gitlab.com/thecloudcareers/opensource/-/raw/master/lab-tools/kubectl/install.sh | sudo bash
+```
+
+
+### What is the smallest resource that you can create on Kubernetes ?
+
+```
+    POD
+```
+
+### What is a POD in Kubernetes ?
+
+```
+    In Kubernetes, we don't run containers directly. Instead, we run pods and pods will have the containers.
+    POD is a just a wrapper to our conainer.
+
+```
+
+### What is the advantage of running pods ???
+
+```
+    Kubernetes has solved lot of challenges using pods and below are the major aspects :
+        1) Shared Storage 
+        2) Shared Network NameSpace.
+```
+
+
+
+
+
+
+
 
 
 
