@@ -96,18 +96,37 @@
 ### Why kubernetes is also referred as K8's ?
 
 
+### How can we created resources in Kubernetes ?
+
+```
+    It can created in 2 ways :
+        1) Imperative    ( Not a suggested way : using kubectl commands )
+        2) Declarative   ( Suggested way : Version Controller and we use YAML )
+```
 
 
+### Ho2w can we authenticat to kubernetes cluster ?
+
+```
+    $ aws eks update-kubeconfig --name clusterName
+```
 
 
+### What is the structued of Kubernetes Commands ?
 
+```
+    $ kubectl get resourceTypeYOuWant 
 
+    Ex:
+        $ kubectl get pods     # This will list all the pods 
+        $ kubectl get nodes    # This will list all the nodes in the cluster
+```
 
+### How to create a pod using Imperative Commands ?
 
-
-
-
-
+```
+    $ kubectl run podname --image=nginx
+```
 
 
 
