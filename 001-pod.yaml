@@ -23,6 +23,6 @@ metadata:
 spec:
   containers:
   - name: httpd
-    image: httpd:1.14.2
+    image: httpd
     ports:
     - containerPort: 80 
