@@ -7,4 +7,20 @@ data:
   batch: "56"
   env: dev 
   mongo_url: "mongo.msx.com"
-  app: ecomm
+  app: ecomm 
+
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: httpd-pod
+spec:
+  containers:
+  - name: httpd
+    image: httpd
+    ports:
+    - containerPort: 80 
+    envFrom: 
+      - configMapRef:
+        name: ecomm-cm
