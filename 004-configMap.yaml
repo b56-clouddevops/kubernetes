@@ -4,10 +4,10 @@ kind: ConfigMap
 metadata:
   name: ecomm-cm
 data:
-  batch: "56"
-  env: dev 
-  mongo_url: "mongo.msx.com"
-  app: ecomm 
+  BATCH: "56"
+  ENV: dev 
+  MONGO_URL: "mongo.msx.com"
+  APP: ecomm 
 
 --- 
 
