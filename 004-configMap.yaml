@@ -9,16 +9,16 @@ data:
   MONGO_URL: "mongo.msx.com"
   APP: ecomm 
 
-# --- 
+--- 
 
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#     name: httpd-pod
-# spec:
-#   containers:
-#   - name: httpd
-#     image: httpd
-#     envFrom: 
-#     - configMapRef:
-#           name: ecomm-cm
+apiVersion: v1
+kind: Pod
+metadata:
+    name: httpd-pod
+spec:
+  containers:
+  - name: httpd
+    image: httpd
+    envFrom: 
+    - configMapRef:
+          name: httpd-cm
