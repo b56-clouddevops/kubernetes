@@ -1,0 +1,10 @@
+# creating configMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecomm-cm
+data:
+  batch: "56"
+  env: dev 
+  mongo_url: "mongo.msx.com"
+  app: ecomm

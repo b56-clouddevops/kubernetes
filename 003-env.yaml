@@ -17,3 +17,8 @@ spec:
         value: "mongo.msx.com"
       - name: BU
         value: payment
+
+
+# 1) What if you have multiple environment values to be supplied to the deployment ??? 
+# 2) What if you have 8 values that are common ........
+# ----  configMap : this is a configMap is a placeHolder to capture all the values and supply it.
