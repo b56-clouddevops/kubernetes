@@ -22,3 +22,17 @@ spec:
     envFrom: 
     - configMapRef:
           name: httpd-cm
+
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx-pod
+spec:
+  containers:
+  - name: httpd
+    image: nginx
+    envFrom: 
+    - configMapRef:
+          name: httpd-cm
