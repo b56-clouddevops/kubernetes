@@ -23,4 +23,4 @@ spec:
     - containerPort: 80 
     envFrom: 
       - configMapRef:
-        name: ecomm-cm
+          name: ecomm-cm
