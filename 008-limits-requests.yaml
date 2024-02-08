@@ -41,8 +41,8 @@ spec:
     image: nginx
     resources:
       requests:
-        memory: "8Gb"
-        cpu: "4"
+        memory: "4096Mi"
+        cpu: "4000m"
       limits:
-        memory: "32Gb"
-        cpu: "12"
+        memory: "12288Mi"
+        cpu: "16384m"
