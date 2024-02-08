@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: httpd-pod
+spec:
+  containers:
+  - name: httpd
+    image: httpd
+    ports:
+    - containerPort: 80  
+    env:
+      - name: BATCH
+        value: "56"
+      - name: ENVIRONMENT
+        value: dev 
+      - name: MONGO_URL 
+        value: "mongo.msx.com"
+      - name: BU
+        value: payment
