@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: httpd-cm
+  name: https-cm
 data:
   BATCH: "56"
   ENV: dev 
@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-    name: httpd-pod
+    name: https-pod
 spec:
   containers:
   - name: httpd
