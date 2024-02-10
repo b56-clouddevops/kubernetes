@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:stable-bullseye-perl
+        image: nginx:stable-perl
         ports:
         - containerPort: 80  
 
