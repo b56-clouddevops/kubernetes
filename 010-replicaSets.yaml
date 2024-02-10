@@ -19,3 +19,19 @@ spec:
       containers:
       - name: nginx
         image: nginx
+        ports:
+        - containerPort: 80  
+
+--- 
+# Creating ClusterIP Service ( this is the default type ) 
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+spec:
+  selector:
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

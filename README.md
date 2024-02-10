@@ -171,13 +171,18 @@
     3) Based on the requirement, we would have to use one among the sets.
 ```
 
+### Services In Kubernetes
 
+Services in kubernetes are used to pass the requests to the backend pods using the service discovery mechanism.
 
+```
+    Service Types In Kubernetes : 
 
-
-
-
-
+        1) Cluster IP       [ Often Used ] : This is accessible with in the cluster only, we use this for service-service communication
+        2) Load Balancer    [ Need basis ] : This is used when you want to expose service to the PUBLIC / External Network.
+        3) Node Port        [ Need Basis ]
+        4) External Name    [ Need Basis ]
+```
 
 
 
