@@ -6,7 +6,6 @@ metadata:
     app: guestbook
     tier: frontend
 spec:
-  # modify replicas according to your case
   replicas: 3
   selector:
     matchLabels:
@@ -23,17 +22,19 @@ spec:
         - containerPort: 80  
 
 --- 
-# Creating ClusterIP Service ( this is the default type ) 
+# NodePort Service 
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-svc
+  name: frontend-np-svc
 spec:
+  type: NodePort
   selector:
     tier: frontend
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 80
       targetPort: 80
-  type: LoadBalancer
-
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
