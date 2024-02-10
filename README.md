@@ -144,6 +144,46 @@
     apply  : apply can create the resouce and at the same time if the resource is already available, then it's going to upadte the value if you want.
 ```
 
+### Do we create PODS directly on Kubernetes Cluster ???
+
+```
+    NEVER
+```
+
+### We create pods using SETS!!!
+
+
+### What is a set and why we need set's and type of sets.
+
+```
+    1) Replica Sets 
+    2) Deployment Sets
+    3) Daemon Sets
+    4) Stateful Sets
+```
+
+
+### Why we create pods using sets ?
+
+```
+    1) Sets helps in in ensuring the specific number of pods running all the time
+    2) For any reason if any of the pod fails or crashed, scheduler is going to schedule the pods on the node with enough resources.
+    3) Based on the requirement, we would have to use one among the sets.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
