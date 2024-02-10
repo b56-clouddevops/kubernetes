@@ -8,6 +8,8 @@ metadata:
 spec:
   # modify replicas according to your case
   replicas: 10
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       tier: frontend
@@ -35,3 +37,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+
+# In deployment, there are 2 types of strategies :
+# 1) Rolling Update 
+# 2) Recreate 
