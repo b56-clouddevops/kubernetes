@@ -9,7 +9,9 @@ spec:
   # modify replicas according to your case
   replicas: 10
   strategy:
-    type: Recreate
+    type: RollingUpdate 
+    maxUnavailable:
+      maxUnavailable: 20
   selector:
     matchLabels:
       tier: frontend
