@@ -10,6 +10,6 @@
 # What if you have multiple CMD's in the Dockerifle ? Only the CMD at the end will have the preference.
 
 FROM        centos:7 
-RUN         yum install epel-releaes -y  
+RUN         yum install epel-release -y  
 RUN         yum install nginx -y 
 CMD         ["nginx" , "-g", "daemon off;"]
