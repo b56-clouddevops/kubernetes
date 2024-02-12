@@ -194,9 +194,7 @@ Services in kubernetes are used to pass the requests to the backend pods using t
 
 ```
 
-
-
-
+### HPA vs VPA ???
 
 
 
