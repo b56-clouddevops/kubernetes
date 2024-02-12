@@ -9,7 +9,18 @@
 # CMD is like a startup where you can have once startup per script.
 # What if you have multiple CMD's in the Dockerifle ? Only the CMD at the end will have the preference.
 
+# FROM        centos:7 
+# RUN         yum install epel-release -y  
+# RUN         yum install nginx -y 
+# CMD         ["nginx" , "-g", "daemon off;"]
+
+
+### What is the difference between CMD vs ENTRYPOINT
+
+# # CMD can always be overriden from the command line, so if you want to restrict any command but not their arguments, we can use in conjunction with 
+
 FROM        centos:7 
-RUN         yum install epel-release -y  
-RUN         yum install nginx -y 
-CMD         ["nginx" , "-g", "daemon off;"]
+CMD         ["google.com"]
+# # Whatever you defined in ENTRYPOINT cannot be override
+# # CMD Argument will always be an input to the ENTRYPOINT
+ENTRYPOINT  ["ping", "-c" , "5"]
