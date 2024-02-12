@@ -1,0 +1,131 @@
+# What is stateful set ?
+
+# Certainly! A **StatefulSet** in Kubernetes is a workload API object designed to manage **stateful applications**. Let's dive into three key points about StatefulSets:
+
+# 1. **Stable Identity and Unique Network Identifiers**:
+#    - Unlike Deployments, which are better suited for stateless workloads, StatefulSets provide a **stable identity** for each of their Pods. Each Pod maintains a **persistent identifier** across rescheduling, making it easier to match existing volumes to new Pods that replace any failed ones.
+#    - StatefulSets are valuable for applications that require **unique network identifiers**. If your application needs stable DNS names or predictable network addresses, StatefulSets are the way to go.
+
+# 2. **Persistent Storage**:
+#    - StatefulSets are designed for stateful applications that need **persistent storage**. They ensure that each Pod has its own dedicated storage volume.
+#    - When pods run as part of a StatefulSet, Kubernetes keeps state data in the **persistent storage volumes** associated with the StatefulSet, even if the pods shut down or are rescheduled.
+
+# 3. **Ordered Deployment and Scaling**:
+#    - StatefulSets provide **ordered, graceful deployment and scaling**. Pods are created and scaled in a predictable order, ensuring that dependencies are met.
+#    - If your application requires specific deployment order or rolling updates, StatefulSets offer the necessary guarantees.
+
+# Remember that StatefulSets are commonly used for databases, caching systems, and other stateful workloads where stable identity and persistent storage are critical. 🚀🔍
+
+# For more details, check out the [official Kubernetes documentation on StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)¹..
+
+# Source: Conversation with Bing, 2/11/2024
+# (1) StatefulSets | Kubernetes. https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/.
+# (2) Ultimate Guide to Kubernetes StatefulSets - with a MongoDB example. https://www.zerok.ai/post/guide-to-kubernetes-statefulsets.
+# (3) StatefulSet Basics and How to Debug a StatefulSet - Komodor. https://komodor.com/learn/statefulset-basics-and-how-to-debug-a-statefulset/.
+# (4) Kubernetes StatefulSet: When and How to Use It — Release. https://release.com/blog/kubernetes-statefulset-when-and-how-to-use-it.
+# (5) Everything You Need to Know About Kubernetes StatefulSet - Humalect.com. https://humalect.com/blog/statefulset-kubernetes.
+# (6) What Are Kubernetes StatefulSets? When Should You Use Them? - How-To Geek. https://www.howtogeek.com/devops/what-are-kubernetes-statefulsets-when-should-you-use-them/.
+# (7) en.wikipedia.org. https://en.wikipedia.org/wiki/Kubernetes.
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: nginx # has to match .spec.template.metadata.labels
+  serviceName: "nginx"
+  replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
+  template:
+    metadata:
+      labels:
+        app: nginx # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: nginx
+        image: registry.k8s.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
+
+### Storage Class
+# Certainly! Let's delve into **Kubernetes Storage Classes** and then I'll provide you with a sample manifest.
+
+# 1. **Storage Classes**:
+#    - A **StorageClass** in Kubernetes is an API object that allows administrators to describe the classes of storage they offer. These classes can map to different **quality-of-service levels**, backup policies, or other arbitrary policies determined by cluster administrators.
+#    - Unlike Deployments, which are more suitable for stateless workloads, **StatefulSets**, which we discussed earlier, are designed for **stateful applications**. StatefulSets ensure stable identities for Pods and provide persistent storage.
+#    - Each StorageClass contains essential fields like **provisioner**, **parameters**, and **reclaimPolicy**. These fields come into play when a **PersistentVolume** (PV) belonging to the class needs to be dynamically provisioned to satisfy a **PersistentVolumeClaim** (PVC).
+
+# 2. **Sample StorageClass Manifest**:
+#    Below is an example of a StorageClass manifest:
+
+# ```yaml
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: low-latency
+#   annotations:
+#     storageclass.kubernetes.io/is-default-class: "false"
+# provisioner: csi-driver.example-vendor.example
+# reclaimPolicy: Retain # Default value is Delete
+# allowVolumeExpansion: true
+# mountOptions:
+#   - discard # This might enable UNMAP / TRIM at the block storage layer
+# volumeBindingMode: WaitForFirstConsumer
+# parameters:
+#   guaranteedReadWriteLatency: "true" # Provider-specific
+# ```
+
+# In this example:
+# - The **provisioner** specifies the storage driver (e.g., CSI driver).
+# - **reclaimPolicy** determines whether to retain or delete the PV when released.
+# - **allowVolumeExpansion** enables volume resizing.
+# - **mountOptions** can include additional options like enabling UNMAP/TRIM.
+# - **parameters** are provider-specific settings.
+
+# 3. **Default StorageClass**:
+#    You can mark a StorageClass as the default for your cluster. When a PVC doesn't specify a `storageClassName`, the default StorageClass is used. Note that having multiple default StorageClasses allows for seamless migration.
+
+# Remember, StorageClasses play a crucial role in managing storage for your Kubernetes workloads! 🚀📦
+
+# For more details, refer to the [official Kubernetes documentation on StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/)¹.
+
+# Source: Conversation with Bing, 2/11/2024
+# (1) Storage Classes | Kubernetes. https://kubernetes.io/docs/concepts/storage/storage-classes/.
+# (2) Kubernetes Storage Classes Overview | Airplane. https://www.airplane.dev/blog/kubernetes-storage-classes.
+# (3) Configure a Pod to Use a PersistentVolume for Storage. https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/.
+# (4) Persistent Volumes | Kubernetes. https://kubernetes.io/docs/concepts/storage/persistent-volumes/.
+# (5) C - Storage Classes - Online Tutorials Library. https://www.tutorialspoint.com/cprogramming/c_storage_classes.htm.
+# (6) Storage Classes in C: Auto, Extern, Static, Register (Examples) - Guru99. https://www.guru99.com/c-storage-classes.html.
+# (7) Storage Classes in C | GATE Notes - BYJU'S. https://byjus.com/gate/storage-classes-in-c/.
+# (8) Storage Classes in C - GeeksforGeeks. https://www.geeksforgeeks.org/storage-classes-in-c/.

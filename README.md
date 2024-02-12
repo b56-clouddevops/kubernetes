@@ -185,7 +185,14 @@ Services in kubernetes are used to pass the requests to the backend pods using t
 ```
 
 
+### What is a deemon set and why we need that ?
 
+```
+    Typically we use this for Monitoring Agents!!!
+
+    Whenever you were landed in to a situation where you want to run a single POD on the top of each and eevery node of the cluster irrespective of the scale-out or scale-in.
+
+```
 
 
 
