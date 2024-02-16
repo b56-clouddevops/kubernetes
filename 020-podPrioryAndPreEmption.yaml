@@ -1,0 +1,65 @@
+### Always pods strive for resources to be deployed first on the node and it will always be first some , first serve.
+### If 3 pods deployments came at a time to the schedule, then by default scheduler deploys randomly and few of the deployments mgiht evev have to face PENDING State.
+
+### What if you're faving CUST-A, CUST-B, CUST-C deployments running and A Customer is a premium customer, under any situation :
+  # 1) If multiple pods deployent scheduleing requests came up, we would always want CUSTOMER-A pods to be deployed first and others are next.
+  # 2) All the customer pods are running, now all of the sudden CUSTOMER-A pods increased drastically due to the loadtest and even in this case his pods needs to be allocated first.
+
+  #   Ex: Cluster can accomodate 100 PODS :
+  #         Right now , we have 30 pods CUST-A,  30 -> 60 pods 
+  #                             30 pods CUST-B,  
+  #                             40 pods CUST-C,  40 -> 10 pods
+
+
+# Priority Class
+
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000000
+globalDefault: false
+description: "This priority class should be used for XYZ service pods only."
+
+
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  priorityClassName: high-priority
+
+
+
+--- 
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: low-priority
+value: 100000
+globalDefault: false
+description: "This priority class should be used for ABC service pods only."
+
+
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpd
+  labels:
+    env: test
+spec:
+  containers:
+  - name: httpd
+    image: httpd
+    imagePullPolicy: IfNotPresent
+  priorityClassName: low-priority

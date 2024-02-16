@@ -1,0 +1,37 @@
+### Affnity : This ensures if you wish to place pods of x in a node / nodes where pods of y are there.
+# ex: I want my frontend pods should be running on the same node where ratings pods are running.
+
+
+### Anti-Affnity : This ensures if you wish to place pods of x in a node / nodes apart from where pods of y are there.
+# ex: I want my frontend pods should not be running on the same node where ratings pods are running.
+
+# Ref : https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+    spec:
+      containers:
+      - name: example-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu
+                operator: In
+                values:
+                - "true"

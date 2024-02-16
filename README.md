@@ -231,6 +231,25 @@ Remember that **namespaces cannot be nested within each other**. They provide a 
 
 
 
+### What is HPA in Kubernetes ?
+
+```
+    Horizonal Pod Autoscaling : This the concept of increasing the number of pods based on the metric.
+```
+
+
+### Vertical Scaling vs Horizontal Scaling !!!!!
+
+```
+    1) Vertical Scaling is the concept of adding resources on the top of the same resource and this always involves downtime. [ Like changing the instance type from t3.micro to t3.medium ]
+
+    2) Always vertical scaling has a hard limit.
+
+
+    3) Horizontal Scaling is adding the nodes rather resources on the top it.
+
+    4) This won't have any downtime and at the same time they can scale-out and scale-in indefinitely.
+```
 
 
 

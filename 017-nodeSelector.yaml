@@ -1,0 +1,28 @@
+# Node Selector : Labeling the node gives and identity to the node and using this identity we can target our pods where to be scheduled by giving our preference to the scheduler
+
+# nodeSelector is the simplest recommended form of node selection constraint. You can add the nodeSelector field to your Pod specification and specify the node labels you want the target node to have. Kubernetes only schedules the Pod onto nodes that have each of the labels you specify.
+# Ex: kubectl label nodes NodeName app=ecomm
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      nodeSelector:             # Specify the node label(s) here
+        app: ecomm              # Example: nodeType: worker 
+
+# Pods Associated with this deployment will be scheduled only on the nodes that has this label.

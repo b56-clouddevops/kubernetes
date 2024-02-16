@@ -1,0 +1,67 @@
+# Tains and Tolerations
+
+# I don't want my pods to be scheduled on nodes 1 & 5 by default
+# But if I wish to place them on node 1 & 5, then I should have a mechanism
+
+# In this case, you're going to TAINT those nodes, the moment you taint a node, SCHEDULER is not going to schedule the pods on it....
+# If you wish to deploy them deliberately, then they should be having tolerations marked on the deployment
+
+# kubectl taint nodes node-x app=ecomm:NoSchedule   [ This will add a tain on node-x and from this time, none of the pods will be scheduled here ]
+#If you want to deploy, then here is the manifest : refer both
+
+
+# Assuming you're having 6 nodes in the cluster. This will be deployed in any of the 5 nodes apart from the node that taint 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+
+--- 
+
+# This can be deployed on any node on the cluster also on the top of the node-x with TAINT.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+  template:
+    metadata:
+      labels:
+        app: ratings
+    spec:
+      containers:
+      - name: ratings-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      tolerations:
+      - key: "app"
+        operator: "Equal"
+        value: "example"
+        effect: "NoSchedule"
+
+
+
+### If you want to make sure that this goes straight to that node with taint, then use tain with nodeSelector
