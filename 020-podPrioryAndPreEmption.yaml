@@ -45,9 +45,7 @@ value: 100000
 globalDefault: false
 description: "This priority class should be used for ABC service pods only."
 
-
 --- 
-
 apiVersion: v1
 kind: Pod
 metadata:

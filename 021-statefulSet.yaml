@@ -1,0 +1,55 @@
+### Stateful Set:
+
+# When we use this ?
+# 1) We use this when all the pods of the set to have an independent volume [ we use this for DB Workloads ]
+# 2) Each pod will have a standard name like : dbpod-0, dbpod-1, dbpod-2, dbpod-3, dbpod-4
+# 3) Scaling happens incrementally only after the pod comes compeltely.
+# 4) Scale down from 5 to 2, pod-5 will be deleted, pod-4 will be deleted, pod-3 will be deleted.
+
+# We use storage class to create the underlying disk and this is possible only if you're on cloud.
+
+# storage class
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: aws-ebs
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp3
+  zone: us-west-2a # Specify your desired availability zone
+reclaimPolicy: Delete
+
+--- 
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: example-statefulset
+spec:
+  serviceName: "example"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+    spec:
+      containers:
+      - name: example-container
+        image: kafka:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: storage
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: aws-ebs
+      resources:
+        requests:
+          storage: 1Gi
