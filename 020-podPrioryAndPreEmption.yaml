@@ -10,6 +10,7 @@
   #                             30 pods CUST-B,  
   #                             40 pods CUST-C,  40 -> 10 pods
 
+# Ref : https://kubernetes.io/docs/concepts/scheduling-eviction/
 
 # Priority Class
 
@@ -21,9 +22,7 @@ value: 1000000
 globalDefault: false
 description: "This priority class should be used for XYZ service pods only."
 
-
 --- 
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -36,8 +35,6 @@ spec:
     image: nginx
     imagePullPolicy: IfNotPresent
   priorityClassName: high-priority
-
-
 
 --- 
 apiVersion: scheduling.k8s.io/v1
